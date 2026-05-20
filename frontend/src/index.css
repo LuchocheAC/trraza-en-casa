@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #f3f4f6;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Receipt: hidden off-screen on screen, rendered during print */
+.receipt-print-only {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 302px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+@media print {
+  @page { size: 80mm auto; margin: 0; }
+
+  body * { visibility: hidden !important; }
+
+  .receipt-print-only,
+  .receipt-print-only * {
+    visibility: visible !important;
+  }
+
+  .receipt-print-only {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 80mm !important;
+    padding: 4mm !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 11px !important;
+    background: white !important;
+  }
+}
