@@ -3,9 +3,9 @@ import { Search, ShoppingCart, Plus, Minus, Trash2, X, CheckCircle, Printer } fr
 import { formatCOP } from '../utils/format';
 
 const CATEGORY_EMOJI = {
-  'Patacones': '🥔', 'Sandwich': '🥪', 'Perros Calientes': '🌭',
+  'Patacones': '🥙', 'Sandwich': '🥪', 'Perros Calientes': '🌭',
   'Chuzos': '🍢', 'Desgranados': '🌽', 'Hamburguesas': '🍔',
-  'Salchipapas': '🍟', 'Extras': '✨',
+  'Salchipapas': '🍟', 'Extras': '🧄',
 };
 
 export default function POS() {
@@ -195,8 +195,8 @@ export default function POS() {
                         ¡{product.stock}!
                       </span>
                     )}
-                    <div className="w-full aspect-square bg-brand-yellow-light rounded-lg flex items-center justify-center mb-2 text-3xl">
-                      {CATEGORY_EMOJI[product.category_name] || '🍽️'}
+                    <div className="w-full aspect-square bg-brand-yellow-light rounded-lg flex items-center justify-center mb-2 text-4xl leading-none select-none">
+                      {CATEGORY_EMOJI[product.category_name] ?? '🍽️'}
                     </div>
                     <p className="text-xs font-semibold text-gray-800 line-clamp-2 mb-1 leading-tight">
                       {product.name}
