@@ -73,8 +73,8 @@ export default function Inventory() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="bg-white rounded-xl p-3.5 shadow-sm flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-            <Package className="text-blue-600" size={20} />
+          <div className="w-10 h-10 bg-brand-blue/10 rounded-xl flex items-center justify-center">
+            <Package className="text-brand-blue" size={20} />
           </div>
           <div>
             <p className="text-xs text-gray-500">Total productos</p>
@@ -106,13 +106,13 @@ export default function Inventory() {
             placeholder="Buscar producto..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
           />
         </div>
         <select
           value={catFilter}
           onChange={e => setCatFilter(e.target.value)}
-          className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
         >
           <option value="">Todas las categorías</option>
           {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -133,13 +133,13 @@ export default function Inventory() {
                 <div className="flex items-center gap-2 flex-wrap mb-0.5">
                   <span className="font-semibold text-gray-800">{product.name}</span>
                   {product.category_name && (
-                    <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-medium">
+                    <span className="text-xs bg-brand-blue/10 text-brand-blue px-2 py-0.5 rounded-full font-medium">
                       {product.category_name}
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-bold text-blue-600">{formatCOP(product.price)}</span>
+                  <span className="text-sm font-bold text-brand-blue">{formatCOP(product.price)}</span>
                   <span className="text-xs text-gray-400">Costo: {formatCOP(product.cost)}</span>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function Inventory() {
               <div className="flex gap-1.5">
                 <button
                   onClick={() => openEdit(product)}
-                  className="w-9 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center transition-colors"
+                  className="w-9 h-9 bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue rounded-xl flex items-center justify-center transition-colors"
                 >
                   <Edit2 size={15} />
                 </button>
@@ -175,7 +175,7 @@ export default function Inventory() {
       {/* FAB */}
       <button
         onClick={openAdd}
-        className="fixed bottom-20 right-4 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-colors z-20"
+        className="fixed bottom-20 right-4 bg-brand-blue hover:bg-brand-blue-dark text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-colors z-20"
       >
         <Plus size={28} />
       </button>
@@ -235,7 +235,7 @@ export default function Inventory() {
                   Cancelar
                 </button>
                 <button type="submit" disabled={saving}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-xl py-3 font-bold transition-colors">
+                  className="flex-1 bg-brand-blue hover:bg-brand-blue-dark disabled:opacity-50 text-white rounded-xl py-3 font-bold transition-colors">
                   {saving ? 'Guardando...' : editing ? 'Guardar' : 'Crear'}
                 </button>
               </div>
@@ -269,7 +269,7 @@ export default function Inventory() {
   );
 }
 
-const INPUT = 'w-full mt-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500';
+const INPUT = 'w-full mt-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue';
 
 function Field({ label, children, required }) {
   return (

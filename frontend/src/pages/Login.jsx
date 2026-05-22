@@ -27,13 +27,13 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-600 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-brand-blue flex flex-col items-center justify-center p-4">
       <div className="bg-white rounded-2xl p-8 w-full max-w-sm shadow-2xl">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <ShoppingCart size={32} className="text-blue-600" />
+          <div className="w-16 h-16 bg-brand-yellow-light rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <ShoppingCart size={32} className="text-brand-blue" />
           </div>
-          <h1 className="text-2xl font-black text-gray-800 tracking-tight">POS Villanueva</h1>
+          <h1 className="text-2xl font-black text-gray-800 tracking-tight">T'rraza en Casa</h1>
           <p className="text-gray-400 text-sm mt-1">Villanueva, La Guajira</p>
         </div>
 
@@ -48,7 +48,7 @@ export default function Login() {
               autoFocus
               value={username}
               onChange={e => setUsername(e.target.value)}
-              className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-blue transition-colors"
               placeholder="admin / cajero"
             />
           </div>
@@ -63,7 +63,7 @@ export default function Login() {
                 autoComplete="current-password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:border-brand-blue transition-colors"
               />
               <button
                 type="button"
@@ -84,14 +84,14 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading || !username || !password}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl py-3.5 font-bold transition-colors mt-2"
+            className="w-full bg-brand-blue hover:bg-brand-blue-dark disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl py-3.5 font-bold transition-colors mt-2"
           >
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
       </div>
 
-      <p className="text-blue-300 text-xs mt-6">Sistema POS · v1.0</p>
+      <p className="text-white/60 text-xs mt-6">Sistema POS · v1.0</p>
     </div>
   );
 }

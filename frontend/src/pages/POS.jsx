@@ -3,8 +3,9 @@ import { Search, ShoppingCart, Plus, Minus, Trash2, X, CheckCircle, Printer } fr
 import { formatCOP } from '../utils/format';
 
 const CATEGORY_EMOJI = {
-  'Bebidas': '🥤', 'Alimentos': '🛒', 'Limpieza': '🧹',
-  'Aseo Personal': '🧴', 'Miscelánea': '📦',
+  'Patacones': '🥔', 'Sandwich': '🥪', 'Perros Calientes': '🌭',
+  'Chuzos': '🍢', 'Desgranados': '🌽', 'Hamburguesas': '🍔',
+  'Salchipapas': '🍟', 'Extras': '✨',
 };
 
 export default function POS() {
@@ -131,7 +132,7 @@ export default function POS() {
             </button>
             <button
               onClick={() => setSuccessSale(null)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-bold transition-colors"
+              className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white rounded-xl py-3 font-bold transition-colors"
             >
               Nueva Venta
             </button>
@@ -153,7 +154,7 @@ export default function POS() {
               placeholder="Buscar producto o código..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
             />
           </div>
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
@@ -181,11 +182,11 @@ export default function POS() {
                     onClick={() => addToCart(product)}
                     disabled={outOfStock}
                     className={`relative bg-white rounded-xl p-3 text-left shadow-sm border-2 transition-all active:scale-95
-                      ${inCart ? 'border-blue-500 shadow-md' : 'border-transparent'}
+                      ${inCart ? 'border-brand-blue shadow-md' : 'border-transparent'}
                       ${outOfStock ? 'opacity-40 cursor-not-allowed' : 'hover:shadow-md cursor-pointer'}`}
                   >
                     {inCart && (
-                      <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold z-10">
+                      <span className="absolute -top-2 -right-2 bg-brand-blue text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold z-10">
                         {inCart.quantity}
                       </span>
                     )}
@@ -194,13 +195,13 @@ export default function POS() {
                         ¡{product.stock}!
                       </span>
                     )}
-                    <div className="w-full aspect-square bg-blue-50 rounded-lg flex items-center justify-center mb-2 text-3xl">
-                      {CATEGORY_EMOJI[product.category_name] || '📦'}
+                    <div className="w-full aspect-square bg-brand-yellow-light rounded-lg flex items-center justify-center mb-2 text-3xl">
+                      {CATEGORY_EMOJI[product.category_name] || '🍽️'}
                     </div>
                     <p className="text-xs font-semibold text-gray-800 line-clamp-2 mb-1 leading-tight">
                       {product.name}
                     </p>
-                    <p className="text-sm font-bold text-blue-600">{formatCOP(product.price)}</p>
+                    <p className="text-sm font-bold text-brand-blue">{formatCOP(product.price)}</p>
                   </button>
                 );
               })}
@@ -214,7 +215,7 @@ export default function POS() {
         <div className="p-4 border-b">
           <h2 className="font-bold text-gray-800 flex items-center gap-2">
             <ShoppingCart size={18} /> Carrito
-            {cartCount > 0 && <span className="ml-auto bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full">{cartCount}</span>}
+            {cartCount > 0 && <span className="ml-auto bg-brand-blue text-white text-xs px-2 py-0.5 rounded-full">{cartCount}</span>}
           </h2>
         </div>
         <CartContent
@@ -228,7 +229,7 @@ export default function POS() {
       {cartCount > 0 && (
         <button
           onClick={() => setShowCart(true)}
-          className="lg:hidden fixed bottom-20 right-4 bg-blue-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl z-20"
+          className="lg:hidden fixed bottom-20 right-4 bg-brand-blue text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl z-20"
         >
           <ShoppingCart size={24} />
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
@@ -268,13 +269,13 @@ export default function POS() {
               </button>
             </div>
 
-            <div className="bg-blue-50 rounded-xl p-4 mb-4">
-              <div className="flex justify-between text-sm text-blue-700 mb-1">
+            <div className="bg-brand-blue-light rounded-xl p-4 mb-4">
+              <div className="flex justify-between text-sm text-brand-blue mb-1">
                 <span>{cartCount} producto(s)</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="font-bold text-blue-800 text-lg">Total</span>
-                <span className="font-black text-blue-800 text-2xl">{formatCOP(cartTotal)}</span>
+                <span className="font-bold text-brand-blue text-lg">Total</span>
+                <span className="font-black text-brand-blue text-2xl">{formatCOP(cartTotal)}</span>
               </div>
             </div>
 
@@ -290,7 +291,7 @@ export default function POS() {
                   onClick={() => setPayMethod(m.key)}
                   className={`py-2.5 rounded-xl text-sm font-semibold border-2 transition-colors ${
                     payMethod === m.key
-                      ? 'border-blue-600 bg-blue-50 text-blue-700'
+                      ? 'border-brand-blue bg-brand-blue-light text-brand-blue'
                       : 'border-gray-200 text-gray-500 hover:border-gray-300'
                   }`}
                 >
@@ -310,7 +311,7 @@ export default function POS() {
                   placeholder="Ej: 20000"
                   value={cashInput}
                   onChange={e => setCashInput(e.target.value)}
-                  className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-xl focus:outline-none focus:border-blue-500"
+                  className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-xl focus:outline-none focus:border-brand-blue"
                 />
                 {cashInput && (
                   <div className={`mt-2 text-center text-lg font-bold rounded-xl py-2 ${
@@ -325,7 +326,7 @@ export default function POS() {
             <button
               onClick={completeSale}
               disabled={processing || (payMethod === 'efectivo' && cashInput && change < 0)}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl py-4 font-bold text-lg transition-colors"
+              className="w-full bg-brand-blue hover:bg-brand-blue-dark disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl py-4 font-bold text-lg transition-colors"
             >
               {processing ? 'Procesando...' : `Cobrar ${formatCOP(cartTotal)}`}
             </button>
@@ -363,7 +364,7 @@ function CartContent({ cart, cartTotal, onUpdateQty, onRemove, onCheckout }) {
                   <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
                   <button
                     onClick={() => onUpdateQty(item.product_id, 1)}
-                    className="w-7 h-7 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-lg flex items-center justify-center transition-colors"
+                    className="w-7 h-7 bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue rounded-lg flex items-center justify-center transition-colors"
                   >
                     <Plus size={13} />
                   </button>
@@ -385,12 +386,12 @@ function CartContent({ cart, cartTotal, onUpdateQty, onRemove, onCheckout }) {
       <div className="p-3 border-t bg-white">
         <div className="flex justify-between items-center mb-3">
           <span className="font-bold text-gray-700">Total</span>
-          <span className="font-black text-xl text-blue-600">{formatCOP(cartTotal)}</span>
+          <span className="font-black text-xl text-brand-blue">{formatCOP(cartTotal)}</span>
         </div>
         <button
           onClick={onCheckout}
           disabled={cart.length === 0}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white rounded-xl py-3.5 font-bold text-base transition-colors"
+          className="w-full bg-brand-blue hover:bg-brand-blue-dark disabled:opacity-40 text-white rounded-xl py-3.5 font-bold text-base transition-colors"
         >
           Cobrar
         </button>
@@ -404,7 +405,7 @@ function CatBtn({ active, onClick, children }) {
     <button
       onClick={onClick}
       className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-        active ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        active ? 'bg-brand-blue text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
       }`}
     >
       {children}
@@ -434,7 +435,7 @@ function Receipt({ sale }) {
   return (
     <div className="receipt-print-only" aria-hidden="true">
       <div style={{ textAlign: 'center', marginBottom: '6px' }}>
-        <div style={{ fontWeight: 'bold', fontSize: '15px', letterSpacing: '1px' }}>TIENDA VILLANUEVA</div>
+        <div style={{ fontWeight: 'bold', fontSize: '15px', letterSpacing: '1px' }}>T'RRAZA EN CASA</div>
         <div>Villanueva, La Guajira</div>
         <div style={{ marginTop: '4px' }}>{SEP}</div>
       </div>

@@ -160,41 +160,61 @@ async function initDb() {
       ['cajero', bcrypt.hashSync('cajero123', 10), 'cajero']);
   }
 
-  // Seed only if empty
-  const n = (_raw.exec('SELECT COUNT(*) as n FROM categories')[0]?.values[0]?.[0]) || 0;
-  if (n === 0) {
-    ['Bebidas','Alimentos','Limpieza','Aseo Personal','Miscelánea'].forEach(name =>
+  // Seed restaurant menu – also migrates if old grocery menu is detected
+  const catCount = (_raw.exec('SELECT COUNT(*) as n FROM categories')[0]?.values[0]?.[0]) || 0;
+  const hasOldMenu = catCount > 0 && !!(_raw.exec("SELECT id FROM categories WHERE name='Bebidas'")?.[0]?.values?.length);
+  if (catCount === 0 || hasOldMenu) {
+    if (hasOldMenu) {
+      _raw.run('UPDATE sale_items SET product_id = NULL');
+      _raw.run('DELETE FROM products');
+      _raw.run('DELETE FROM categories');
+    }
+
+    ['Patacones','Sandwich','Perros Calientes','Chuzos','Desgranados','Hamburguesas','Salchipapas','Extras'].forEach(name =>
       _raw.run('INSERT OR IGNORE INTO categories (name) VALUES (?)', [name])
     );
 
     const cid = (name) =>
       _raw.exec(`SELECT id FROM categories WHERE name='${name}'`)[0]?.values[0]?.[0];
 
-    const b = cid('Bebidas'), a = cid('Alimentos'), l = cid('Limpieza'),
-          p = cid('Aseo Personal'), m = cid('Miscelánea');
+    const pa = cid('Patacones'),   sw = cid('Sandwich'),        pc = cid('Perros Calientes'),
+          ch = cid('Chuzos'),      dg = cid('Desgranados'),     hb = cid('Hamburguesas'),
+          sp = cid('Salchipapas'), ex = cid('Extras');
 
     const ins = 'INSERT INTO products (name, price, cost, stock, category_id, unit) VALUES (?,?,?,?,?,?)';
     [
-      ['Agua Brisa 600ml',       2000,  1400, 50, b, 'unidad'],
-      ['Coca-Cola 350ml',        3000,  2200, 40, b, 'unidad'],
-      ['Gatorade 500ml',         4500,  3200, 30, b, 'unidad'],
-      ['Jugo Hit 200ml',         2500,  1800, 45, b, 'unidad'],
-      ['Leche Alquería 1L',      4200,  3500, 25, b, 'unidad'],
-      ['Arroz Diana 500g',       3500,  2800, 60, a, 'paquete'],
-      ['Aceite 1L',              9500,  8000, 20, a, 'botella'],
-      ['Azúcar 1kg',             5500,  4500, 35, a, 'paquete'],
-      ['Sal 500g',               1500,  1000, 40, a, 'paquete'],
-      ['Pasta 400g',             3200,  2500, 30, a, 'paquete'],
-      ['Pan Tajado',             6500,  5000, 15, a, 'paquete'],
-      ['Huevos x12',            14000, 11500,  8, a, 'cubeta'],
-      ['Detergente Ariel 500g',  8500,  7000, 25, l, 'paquete'],
-      ['Jabón Líquido 500ml',    6000,  4800, 20, l, 'botella'],
-      ['Papel Higiénico x4',     7500,  6000,  3, p, 'paquete'],
-      ['Shampoo H&S 400ml',     12000,  9500, 15, p, 'botella'],
-      ['Pasta Dental Colgate',   5500,  4200,  4, p, 'unidad'],
-      ['Pilas AA x2',            4000,  3000, 40, m, 'par'],
-      ['Cuaderno 50 hojas',      3500,  2500, 20, m, 'unidad'],
-      ['Esfero Azul',            1500,   800, 50, m, 'unidad'],
+      ['Patacón Pollo',               16000, 0, 999, pa, 'unidad'],
+      ['Patacón Carne',               18000, 0, 999, pa, 'unidad'],
+      ['Patacón Mixto',               20000, 0, 999, pa, 'unidad'],
+      ['Patacón Pollo Ranchero',      22000, 0, 999, pa, 'unidad'],
+      ['Patacón Carne Ranchero',      24000, 0, 999, pa, 'unidad'],
+      ['Patacón Super',               26000, 0, 999, pa, 'unidad'],
+      ['Sandwich Club House',         24000, 0, 999, sw, 'unidad'],
+      ['Perro Sencillo',              12000, 0, 999, pc, 'unidad'],
+      ['Perro Ranchero',              15000, 0, 999, pc, 'unidad'],
+      ['Polli Perro',                 20000, 0, 999, pc, 'unidad'],
+      ['Perro Suizo',                 22000, 0, 999, pc, 'unidad'],
+      ['Chuzo de Pollo',              22000, 0, 999, ch, 'unidad'],
+      ['Chuzo Mixto',                 24000, 0, 999, ch, 'unidad'],
+      ['Chuzo Suizo Ranchero',        26000, 0, 999, ch, 'unidad'],
+      ['Desgranado de Pollo',         23000, 0, 999, dg, 'unidad'],
+      ['Desgranado Mixto',            25000, 0, 999, dg, 'unidad'],
+      ['Desgranado Suizo Ranchero',   27000, 0, 999, dg, 'unidad'],
+      ['Hamburguesa Sencilla',        18000, 0, 999, hb, 'unidad'],
+      ['Hamburguesa de Pollo',        18000, 0, 999, hb, 'unidad'],
+      ['Hamburguesa Pollo Ranchera',  22000, 0, 999, hb, 'unidad'],
+      ['Hamburguesa Mixta',           24000, 0, 999, hb, 'unidad'],
+      ['Hamburguesa Doble Carne',     28000, 0, 999, hb, 'unidad'],
+      ['Hamburguesa Gigantona',       30000, 0, 999, hb, 'unidad'],
+      ['Salchipapa Sencilla',         16000, 0, 999, sp, 'unidad'],
+      ['Salchipapa Ranchera',         20000, 0, 999, sp, 'unidad'],
+      ['Salchipapa Suiza Ranchera',   25000, 0, 999, sp, 'unidad'],
+      ['Salchipollo',                 22000, 0, 999, sp, 'unidad'],
+      ['Salchipollo Ranchero',        24000, 0, 999, sp, 'unidad'],
+      ['Turbulencia',                 22000, 0, 999, sp, 'unidad'],
+      ['Proteinas',                   22000, 0, 999, sp, 'unidad'],
+      ["Salchi T'rraza x1",           27000, 0, 999, sp, 'unidad'],
+      ['Crema de Ajo',                12000, 0, 999, ex, 'unidad'],
     ].forEach(row => _raw.run(ins, row));
   }
 
