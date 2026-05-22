@@ -27,22 +27,22 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <header className="bg-brand-blue text-white px-4 py-3 shadow-lg flex items-center justify-between sticky top-0 z-30">
+      <header className="bg-brand-yellow text-brand-blue px-4 py-3 shadow-lg flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-2">
-          <ShoppingCart size={22} />
+          <img src="/logo.png" alt="T'rraza en Casa" className="h-10 w-auto" />
           <span className="font-bold text-lg tracking-tight">T'rraza en Casa</span>
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-semibold leading-tight">{user?.username}</p>
-            <p className="text-xs text-brand-blue-muted capitalize leading-tight">
+            <p className="text-xs text-brand-blue/60 capitalize leading-tight">
               {user?.role === 'admin' ? 'Administrador' : 'Cajero'}
             </p>
           </div>
           <button
             onClick={handleLogout}
             title="Cerrar sesión"
-            className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-brand-blue/10 transition-colors text-brand-blue/70 hover:text-brand-blue"
           >
             <LogOut size={18} />
           </button>

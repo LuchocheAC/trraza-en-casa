@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -30,9 +30,7 @@ export default function Login() {
     <div className="min-h-screen bg-brand-blue flex flex-col items-center justify-center p-4">
       <div className="bg-white rounded-2xl p-8 w-full max-w-sm shadow-2xl">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-brand-yellow-light rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <ShoppingCart size={32} className="text-brand-blue" />
-          </div>
+          <img src="/logo.png" alt="T'rraza en Casa" className="h-10 w-auto mx-auto mb-4" />
           <h1 className="text-2xl font-black text-gray-800 tracking-tight">T'rraza en Casa</h1>
           <p className="text-gray-400 text-sm mt-1">Villanueva, La Guajira</p>
         </div>
